@@ -10,6 +10,7 @@ GAME RULES:
 */
 
 var scores, roundScore, activePlayer, gamePlaying;
+var preSix;
 
 // init dice game
 init();
@@ -27,6 +28,18 @@ document.querySelector('.btn-roll').addEventListener('click', function() {
 
       // if not 1, add round score
       if (dice !== 1) {
+        // check if two 6 in a row
+        if (dice === 6) {
+          if (preSix === false) {
+            preSix = true;
+          } else {
+            scores[activePlayer] = 0;
+            document.getElementById('score-' + activePlayer).textContent = '0';
+            nextPlayer();
+          }
+        } else {
+          preSix = false;
+        }
         roundScore += dice;
         document.querySelector('#current-' + activePlayer).textContent = roundScore;
       } else {
@@ -67,6 +80,7 @@ function nextPlayer() {
     // update activePlayer
     activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
     roundScore = 0;
+    preSix = false;
 
     // clear round score
     document.getElementById('current-0').textContent = '0';
@@ -86,6 +100,7 @@ function init() {
     activePlayer = 0;
     roundScore = 0;
     gamePlaying = true;
+    preSix = false;
 
     document.querySelector('.dice').style.display = 'none';
 
