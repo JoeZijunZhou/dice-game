@@ -59,8 +59,14 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
       // display updated global score
       document.getElementById('score-' + activePlayer).textContent = scores[activePlayer];
 
+      // input target score
+      var input = document.querySelector('.target-score').value;
+      // check input valid
+      if (!input) {
+        input = 100;
+      }
       // check if won
-      if (scores[activePlayer] >= 100) {
+      if (scores[activePlayer] >= input) {
         document.querySelector('#name-' + activePlayer).textContent = 'Winner!';
         document.querySelector('.dice').style.display = 'none';
         document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
